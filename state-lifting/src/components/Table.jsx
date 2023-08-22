@@ -6,12 +6,23 @@ const Table = ({ contacts }) => {
         setFilter(e.target.value);
     }
 
+    const [searchterm, setSearchterm] = useState('')
+    const search = (contact) => contact.name.includes(searchterm) ||
+        contact.email.includes(searchterm);
+    const handleSearch = (e) => {
+        setSearchterm(e.target.value);
+    }
+
     let filterContacts = [];
     if (filter == 'All') {
-        filterContacts = contacts;
+        filterContacts = searchterm ? contacts.filter(search) : contacts;
     } else {
-        filterContacts = contacts.filter(contact => contact.group == filter)
+        filterContacts = contacts.filter(contact => contact.group == filter && search(contact))
     }
+    // if (searchterm) {
+    //     filterContacts = filterContacts.filter(contact => contact.name.includes(searchterm) ||
+    //         contact.email.includes(searchterm))
+    // }
     return (
         <>
             <div>
@@ -24,6 +35,7 @@ const Table = ({ contacts }) => {
                     <option value="Home">Home</option>
                     <option value="Office">Office</option>
                 </select>
+                <input type="search" placeholder="Search" value={searchterm} onChange={handleSearch} />
             </div>
             <table>
                 <thead>
