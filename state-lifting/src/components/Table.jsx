@@ -19,10 +19,10 @@ const Table = ({ contacts }) => {
     } else {
         filterContacts = contacts.filter(contact => contact.group == filter && search(contact))
     }
-    // if (searchterm) {
-    //     filterContacts = filterContacts.filter(contact => contact.name.includes(searchterm) ||
-    //         contact.email.includes(searchterm))
-    // }
+    if (searchterm) {
+        filterContacts = filterContacts.filter(contact => contact.name.includes(searchterm) ||
+            contact.email.includes(searchterm))
+    }
     return (
         <>
             <div>
